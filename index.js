@@ -12,7 +12,7 @@ app.get('/', function(req, res) {
 function translateMessage(message, username) {
   translate(message, { from: 'en', to: 'es' }).then(result => {
     //io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
-    io.emit('chat_message', '<strong>' + username + '</strong>: ' + result);
+    io.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
   });
 }
 
