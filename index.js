@@ -2,16 +2,14 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const translate = require("translate");
-translate.engine = "libre";
+const { translate } = require('free-translate');
+
+
 app.get('/', function(req, res) {
     res.render('index.ejs');
 });
 
-const translateMessage = async function(message) {
-  const translatedMessage = await translate(message, "es");
-  return translatedMessage;
-}
+
 
 io.sockets.on('connection', function(socket) {
     socket.on('username', function(username) {
@@ -24,8 +22,11 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on('chat_message', function(message) {
-        translatedContent = translateMessage(message);
-        io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + translatedContent);
+        translate(message, { from: 'en', to: 'es' }).then(result => {
+          setTimeout(function() {
+            io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + result);
+          }, 5000);
+        });
     });
 
 });
