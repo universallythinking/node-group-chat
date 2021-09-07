@@ -24,7 +24,7 @@ app.get('/sendMessage', function(req, res) {
     var message = req.query.body;
     translate(message, { from: 'en', to: 'es' }).then(result => {
       console.log(message, result);
-      io.sockets.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
+      io.sockets.emit('chat_message', '<strong>' + username + '</strong>: ' + '<br>' + message + '<br>' + result);
       res.sendStatus(200);
     });
 

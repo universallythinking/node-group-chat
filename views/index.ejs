@@ -31,8 +31,8 @@
                 }
             });*/
             var user;
-            //var socket = io.connect('http://translaterchat.herokuapp.com');//' + ':' + port);
-            var socket = io.connect('http://localhost:5000');//' + ':' + port);
+            var socket = io.connect('http://translaterchat.herokuapp.com');//' + ':' + port);
+            //var socket = io.connect('http://localhost:5000');//' + ':' + port);
             // submit text message without reload/refresh the page
             $('#send').on("click", function(e){
                 e.preventDefault(); // prevents page reloading
@@ -61,8 +61,8 @@
 
             // append text if someone is online
             socket.on('is_online', function(username) {
-                user = username;
-                $('#messages').append($('<li>').html(username));
+                user = username.split(" join the chat..")[0];
+                $('#messages').append($('<li>').html(user + " joined the chat..."));
             });
 
             // ask username
