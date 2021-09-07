@@ -39,5 +39,5 @@ const server = http.listen(process.env.PORT || 5000, function() {
     console.log(server.address().port);
 });
 app.get('/port', function(req, res) {
-    res.send(port);
+    res.send({"body": port});
 });

@@ -26,8 +26,7 @@
                 url: "/port",
                 type: 'GET',
                 success: function(res) {
-                  alert(res);
-                    port = res;
+                    port = res.body;
                 }
             });
             var socket = io.connect('https://translaterchat.herokuapp.com:' + port);
