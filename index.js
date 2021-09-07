@@ -16,15 +16,31 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
     res.render('index.ejs');
 });
-//var port;
+var i;
 
+
+//var port;
+app.get('/sendMessage', function(req, res) {
+    var username = "univthink";
+    var message = req.query.body;
+    translate(message, { from: 'en', to: 'es' }).then(result => {
+      //io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
+      console.log(message, result);
+      io.sockets.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
+    });
+    res.sendStatus(200);
+});
 
 function translateMessage(message, username) {
   translate(message, { from: 'en', to: 'es' }).then(result => {
     //io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
-    io.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
+    console.log(message, result);
+    io.sockets.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
   });
 }
+
+translateMessage("hi how are you", "univthink");
+
 
 io.sockets.on('connection', function(socket) {
     socket.on('username', function(username) {
@@ -37,6 +53,7 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on('chat_message', function(message) {
+      io.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
       translateMessage(message, socket.username);
     });
 
