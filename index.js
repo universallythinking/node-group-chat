@@ -16,19 +16,18 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
     res.render('index.ejs');
 });
-var i;
 
 
 //var port;
 app.get('/sendMessage', function(req, res) {
-    var username = "univthink";
+    var username = req.query.user;
     var message = req.query.body;
     translate(message, { from: 'en', to: 'es' }).then(result => {
-      //io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
       console.log(message, result);
       io.sockets.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
+      res.sendStatus(200);
     });
-    res.sendStatus(200);
+
 });
 
 function translateMessage(message, username) {
@@ -39,7 +38,7 @@ function translateMessage(message, username) {
   });
 }
 
-translateMessage("hi how are you", "univthink");
+//translateMessage("hi how are you", "univthink");
 
 
 io.sockets.on('connection', function(socket) {
