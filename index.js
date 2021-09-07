@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
     res.render('index.ejs');
 });
-var port;
+//var port;
 
 
 function translateMessage(message, username) {
@@ -43,9 +43,11 @@ io.sockets.on('connection', function(socket) {
 });
 
 const server = http.listen(process.env.PORT || 5000, function() {
-    port = server.address().port;
+    //port = server.address().port;
     console.log(server.address().port);
 });
-app.get('/port', function(req, res) {
+
+
+/*app.get('/port', function(req, res) {
     res.send({"body": port});
-});
+});*/
