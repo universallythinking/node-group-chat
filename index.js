@@ -8,6 +8,11 @@ app.get('/', function(req, res) {
     res.render('index.ejs');
 });
 
+const translateMessage = async function(message) {
+  const translatedMessage = await translate(message, "es");
+  return translatedMessage;
+}
+
 io.sockets.on('connection', function(socket) {
     socket.on('username', function(username) {
         socket.username = username;
@@ -19,7 +24,7 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on('chat_message', function(message) {
-        const translatedContent = translate(message, "es");
+        translatedContent = translateMessage(message);
         io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + translatedContent);
     });
 
