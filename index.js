@@ -1,3 +1,5 @@
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -9,7 +11,9 @@ app.get('/', function(req, res) {
     res.render('index.ejs');
 });
 var port;
-
+app.get('/port', function(req, res) {
+    res.send({"body": port});
+});
 
 function translateMessage(message, username) {
   translate(message, { from: 'en', to: 'es' }).then(result => {
@@ -37,7 +41,4 @@ io.sockets.on('connection', function(socket) {
 const server = http.listen(process.env.PORT || 5000, function() {
     port = server.address().port;
     console.log(server.address().port);
-});
-app.get('/port', function(req, res) {
-    res.send({"body": port});
 });
