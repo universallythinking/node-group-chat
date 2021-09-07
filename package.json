@@ -4,10 +4,11 @@
   "description": "A simple group chat built using Node.js and Socket.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "author": "Diky Hadna",
-  "license": "ISC",
+  "author": "Ben Barnett",
+  "license": "MIT",
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.4",
