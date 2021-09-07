@@ -9,7 +9,14 @@ app.get('/', function(req, res) {
     res.render('index.ejs');
 });
 
-
+function translateMessage(message, username) {
+  translate(message, { from: 'en', to: 'es' }).then(result => {
+    console.log(result);
+    io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
+    io.emit('chat_message', '<strong>' + username + '</strong>: ' + result);
+  });
+}
+translateMessage("hi how are you", "univthink");
 
 io.sockets.on('connection', function(socket) {
     socket.on('username', function(username) {
@@ -22,11 +29,7 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on('chat_message', function(message) {
-        translate(message, { from: 'en', to: 'es' }).then(result => {
-          setTimeout(function() {
-            io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + result);
-          }, 5000);
-        });
+      translateMessage(message, socket.username);
     });
 
 });
