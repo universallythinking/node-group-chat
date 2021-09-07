@@ -11,12 +11,10 @@ app.get('/', function(req, res) {
 
 function translateMessage(message, username) {
   translate(message, { from: 'en', to: 'es' }).then(result => {
-    console.log(result);
-    io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
+    //io.emit('chat_message', '<strong>' + username + '</strong>: ' + message);
     io.emit('chat_message', '<strong>' + username + '</strong>: ' + result);
   });
 }
-translateMessage("hi how are you", "univthink");
 
 io.sockets.on('connection', function(socket) {
     socket.on('username', function(username) {
