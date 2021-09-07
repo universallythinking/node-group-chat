@@ -19,7 +19,7 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on('chat_message', function(message) {
-        const translatedContent = await translate(message, "es");
+        const translatedContent = translate(message, "es");
         io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + translatedContent);
     });
 
