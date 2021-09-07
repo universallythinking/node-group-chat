@@ -23,7 +23,7 @@
     <script>
             var port;
             $.ajax({
-                url: "/port",
+                url: "https://translaterchat.herokuapp.com/port",
                 type: 'GET',
                 success: function(res) {
                     port = res.body.toString();
