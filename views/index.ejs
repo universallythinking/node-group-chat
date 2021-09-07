@@ -17,14 +17,14 @@
   </head>
   <body>
     <ul id="messages"></ul>
-    <form action="/" method="POST" id="chatForm">
-      <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /><button>Send</button>
+    <form id="chatForm">
+      <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /><button id="send">Send</button>
     </form>
     <script>
             var socket = io.connect('https://translaterchat.herokuapp.com/');
 
             // submit text message without reload/refresh the page
-            $('form').submit(function(e){
+            $('#send').on("click", function(e){
                 e.preventDefault(); // prevents page reloading
                 socket.emit('chat_message', $('#txt').val());
                 $('#txt').val('');
