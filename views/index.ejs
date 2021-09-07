@@ -21,8 +21,17 @@
       <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /><button id="send">Send</button>
     </form>
     <script>
-            var socket = io.connect('http://translaterchat.herokuapp.com:5000');
-
+            var port;
+            $.ajax({
+                url: "/port",
+                type: 'GET',
+                success: function(res) {
+                  alert(res);
+                    port = res;
+                }
+            });
+            var socket = io.connect('https://translaterchat.herokuapp.com:' + port);
+            $.ajax()
             // submit text message without reload/refresh the page
             $('#send').on("click", function(e){
                 e.preventDefault(); // prevents page reloading

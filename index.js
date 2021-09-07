@@ -8,6 +8,8 @@ const { translate } = require('free-translate');
 app.get('/', function(req, res) {
     res.render('index.ejs');
 });
+var port;
+
 
 function translateMessage(message, username) {
   translate(message, { from: 'en', to: 'es' }).then(result => {
@@ -33,5 +35,9 @@ io.sockets.on('connection', function(socket) {
 });
 
 const server = http.listen(process.env.PORT || 5000, function() {
-    console.log('listening on *:8080');
+    port = server.address().port;
+    console.log(server.address().port);
+});
+app.get('/port', function(req, res) {
+    res.send(port);
 });
