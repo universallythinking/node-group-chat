@@ -25,9 +25,10 @@ app.get('/sendMessage', function(req, res) {
     translate(message, { from: 'en', to: 'es' }).then(result => {
       console.log(message, result);
       io.sockets.emit('chat_message', '<strong>' + username + '</strong>: ' + '<br>' + message + '<br>' + result);
-      res.sendStatus(200);
     });
-
+    setTimeout(function() {
+      res.sendStatus(200);
+    },7500);
 });
 
 function translateMessage(message, username) {
@@ -52,7 +53,7 @@ io.sockets.on('connection', function(socket) {
     })
 
     socket.on('chat_message', function(message) {
-      io.emit('chat_message', '<strong>' + username + '</strong>: ' + message + '<br><br>' + result);
+      io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + message);
       translateMessage(message, socket.username);
     });
 

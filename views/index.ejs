@@ -40,7 +40,7 @@
                 o.body = $('#txt').val();
                 o.user = user;
                 $.ajax({
-                    url: "http://translaterchat.herokuapp.com/sendMessage",
+                    url: "/sendMessage",
                     type: 'GET',
                     data: o,
                     success: function(res) {
